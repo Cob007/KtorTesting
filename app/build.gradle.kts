@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ktorPlugin)
 }
 
 android {
@@ -67,6 +68,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation ("video.api:android-api-client:1.5.7")
-
+    //ktor
+    implementation(libs.ktorJson)
+    implementation(libs.ktorAndroid)
+    implementation(libs.ktorLogging)
+    implementation(libs.ktorSerialization)
+    implementation(libs.ktorBom)
+    implementation(libs.ktorKotlinx)
+    implementation(libs.ktorNegotiation)
 }

@@ -8,6 +8,8 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.4"
 activityCompose = "1.9.1"
 composeBom = "2024.04.01"
+ktorVersion = "2.3.12"
+ktorPlugin = "2.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,7 +27,17 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
+#Ktor
+ktorAndroid = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktorVersion"}
+ktorJson = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktorVersion"}
+ktorSerialization = { group = "io.ktor", name = "ktor-client-serialization", version.ref = "ktorVersion"}
+ktorLogging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktorVersion"}
+ktorKotlinx = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktorVersion"}
+ktorNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktorVersion"}
+ktorBom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktorVersion"}
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ktorPlugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "ktorPlugin"}
 
