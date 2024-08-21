@@ -74,6 +74,7 @@ class KtorApiClient {
         val url = URLBuilder().apply {
             takeFrom("https://api.example.com/movies") // Replace with your API endpoint
         }
+        //error here
         return httpClient.get<List<Movie>>(url.build())
     }
 
