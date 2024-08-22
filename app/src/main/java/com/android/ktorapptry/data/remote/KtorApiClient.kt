@@ -2,6 +2,7 @@ package com.android.ktorapptry.data.remote
 
 import android.util.Log
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.HttpTimeout
@@ -14,18 +15,26 @@ import io.ktor.client.plugins.observer.ResponseObserver
 import io.ktor.client.request.accept
 import io.ktor.client.request.get
 import io.ktor.client.request.header
+import io.ktor.client.request.request
+import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpMethod
 import io.ktor.http.URLBuilder
+import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
+import io.ktor.http.path
 import io.ktor.http.takeFrom
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 private const val NETWORK_TIME_OUT = 6_000L
+private const val BASE_URL = "ktor.io"
 
 
 class KtorApiClient {
+
+    //Add Engine : CIO, ANDROID, IOS
     private val httpClient = HttpClient(Android) {
         install(ContentNegotiation){
             json(
@@ -69,15 +78,39 @@ class KtorApiClient {
         }
     }
 
-
     suspend fun getMovies(): List<Movie> {
-        val url = URLBuilder().apply {
-            takeFrom("https://api.example.com/movies") // Replace with your API endpoint
+        val response : HttpResponse = httpClient.get("https://api.example.com/users"){
+            header(HttpHeaders.Accept, true)
         }
-        //error here
-        return httpClient.get<List<Movie>>(url.build())
+        return response.body()
     }
 
+    //Another format
+    suspend fun getMoviesWithCustomUrl() : List<Movie> {
+        val response : HttpResponse = httpClient.get {
+            url {
+                protocol = URLProtocol.HTTPS
+                host = BASE_URL
+                path("docs/welcome.html")
+            }
+        }
+        return response.body()
+    }
+
+    //Another format
+    suspend fun getMoviesUsingRequest() : List<Movie> {
+        val response: HttpResponse = httpClient.request(BASE_URL) {
+            method = HttpMethod.Get
+            url {
+                protocol = URLProtocol.HTTPS
+                host = BASE_URL
+                path("docs/welcome.html")
+            }
+        }
+        return response.body()
+
+
+    }
 
 }
 
